@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ae.agent — AMV & Motion Editor</title>
+<meta name="description" content="ae.agent edits AMVs, YouTube videos, TikToks and visual effects — motion design and editing built for anime and creator content.">
+<meta name="author" content="ae.agent">
+<meta name="theme-color" content="#0B0A14">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ae.agent — AMV & Motion Editor">
+<meta property="og:description" content="AMV edits, motion design, YouTube and TikTok editing, and visual effects.">
+<meta property="og:site_name" content="ae.agent">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ae.agent — AMV & Motion Editor">
+<meta name="twitter:description" content="AMV edits, motion design, YouTube and TikTok editing, and visual effects.">
+
+<!-- Favicon (inline SVG, no external file needed) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B0A14'/%3E%3Ccircle cx='50' cy='50' r='14' fill='%235B4FE8'/%3E%3C/svg%3E">
+
+<!-- Fonts: progressive enhancement, full system-font fallback if offline -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__mark">ae<span class="loader__dot">.</span>agent</div>
+  <div class="loader__code" id="loaderCode">00:00:00:00</div>
+  <div class="loader__bar"><span id="loaderFill"></span></div>
+</div>
+
+<!-- ============ CUSTOM CURSOR ============ -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAVBAR ============ -->
+<header class="site-head">
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <nav class="nav" aria-label="Primary">
+    <a href="#hero" class="nav__logo">ae<span>.</span>agent</a>
+
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#services" data-section="services">Services</a></li>
+      <li><a href="#work" data-section="work">Work</a></li>
+      <li><a href="#process" data-section="process">Process</a></li>
+      <li><a href="#pricing" data-section="pricing">Pricing</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="icon-moon"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+      <a href="#contact" class="btn btn--primary btn--small btn--hire magnetic">Hire me</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile fullscreen menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="mobile-menu__foot">
+      <button type="button" class="contact__link--copy" data-copy="ae.agent">Discord</button>
+      <a href="mailto:ttvagenttt@gmail.com">Email</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <canvas class="hero__particles" id="particles" aria-hidden="true"></canvas>
+
+    <p class="status-pill" data-reveal><span class="pulse-dot"></span>Available for new projects</p>
+
+    <h1 class="hero__title">
+      <span class="reveal-line"><span>ae<span class="hero__dot">.</span>agent</span></span>
+    </h1>
+
+    <p class="hero__editing-line">
+      Currently editing: <span class="type-target" id="typeTarget">AMVs</span><span class="type-cursor">|</span>
+    </p>
+
+    <p class="hero__tagline">
+      AMV edits, YouTube videos, TikToks and visual effects — built with sync, pacing,
+      and motion that <strong>hits right on beat</strong>.
+    </p>
+
+    <div class="hero__ctas">
+      <a href="#work" class="btn btn--primary magnetic">View work <span class="arrow-down">↓</span></a>
+      <a href="#contact" class="btn btn--dark magnetic">Work with me</a>
+    </div>
+
+    <div class="hero__stats">
+      <div class="hero__stat"><span class="counter" data-count="4">0</span><small>Core tools</small></div>
+      <div class="hero__stat"><span class="counter" data-count="5">0</span><small>Services offered</small></div>
+      <div class="hero__stat"><span class="hero__stat-static">24/7</span><small>Editing mindset</small></div>
+    </div>
+
+    <div class="scroll-cue">
+      <span>SCROLL</span>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="wrap about__grid">
+      <div class="about__media" data-reveal>
+        <div class="about__frame tilt">
+          <img src="images/profile.png" alt="ae.agent" loading="lazy">
+          <div class="about__badge"><span class="pulse-dot"></span>Available for new projects</div>
+        </div>
+      </div>
+
+      <div class="about__copy">
+        <p class="eyebrow">About</p>
+        <h2 class="section__title" data-reveal>Every cut has a reason.</h2>
+        <p class="lede" data-reveal>
+          I'm ae.agent — an editor working across AMVs, YouTube videos, TikToks and visual
+          effects. I care about sync, pacing, and motion that actually lands on the beat,
+          not just looks busy.
+        </p>
+        <p data-reveal>
+          Whether it's an anime music video, a full YouTube upload, or a quick TikTok cut,
+          the goal is the same: <em>make every frame earn its place.</em>
+        </p>
+
+        <div class="chip-row" data-reveal>
+          <span class="chip">Sync precision</span>
+          <span class="chip">Motion design</span>
+          <span class="chip">VFX compositing</span>
+          <span class="chip">Sound design</span>
+          <span class="chip">Fast turnaround</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section section--alt" id="services">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Services</p>
+        <h2 class="section__title" data-reveal>Built around <span class="accent-word">motion</span><span class="hero__dot">.</span></h2>
+        <p class="section__sub" data-reveal>Five ways to work together — pick one, or let me run the whole edit.</p>
+      </div>
+
+      <div class="services-table" data-reveal>
+
+        <div class="service-cell">
+          <div class="service-cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3 4 14h6l-1 7 9-11h-6l1-7z"/></svg></div>
+          <h3>AMV Edits</h3>
+          <p>Anime music videos cut to hit every beat — sync, pacing, and transitions built around the music, not just the footage.</p>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.5 6.5l2 2M15.5 15.5l2 2M6.5 17.5l2-2M15.5 8.5l2-2"/></svg></div>
+          <h3>Motion Design</h3>
+          <p>Kinetic typography, titles, transitions, and animated graphics that feel native to the content, not bolted on.</p>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 5v4"/></svg></div>
+          <h3>YouTube Editing</h3>
+          <p>Full video edits with clean pacing, sound design, and a structure built to keep people watching.</p>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>TikTok Editing</h3>
+          <p>Hook-first vertical cuts — fast pacing, punchy captions, and sound design built for the scroll.</p>
+        </div>
+
+        <div class="service-cell">
+          <div class="service-cell__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>Visual Effects</h3>
+          <p>Compositing, particle effects, and screen work that blends into the footage instead of sitting on top of it.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Selected work</p>
+        <h2 class="section__title" data-reveal>Reels in <span class="accent-word">progress</span><span class="hero__dot">.</span></h2>
+        <p class="section__sub" data-reveal>Frames are ready below — drop in your edited reels for AMV, YouTube, TikTok and VFX work.</p>
+      </div>
+
+      <div class="reel-grid" data-reveal>
+
+        <figure class="reel-frame reel-frame--portrait">
+          <span class="reel-frame__badge">AMV Edit</span>
+          <!-- Add your AMV reel: set the src below, e.g. src="reels/amv-01.mp4" -->
+          <video controls playsinline preload="metadata"></video>
+          <figcaption>Reel coming soon</figcaption>
+        </figure>
+
+        <figure class="reel-frame">
+          <span class="reel-frame__badge">YouTube Edit</span>
+          <!-- Add your YouTube edit reel: set the src below -->
+          <video controls playsinline preload="metadata"></video>
+          <figcaption>Reel coming soon</figcaption>
+        </figure>
+
+        <figure class="reel-frame reel-frame--portrait">
+          <span class="reel-frame__badge">TikTok Edit</span>
+          <!-- Add your TikTok edit reel: set the src below -->
+          <video controls playsinline preload="metadata"></video>
+          <figcaption>Reel coming soon</figcaption>
+        </figure>
+
+        <figure class="reel-frame">
+          <span class="reel-frame__badge">VFX Reel</span>
+          <!-- Add your VFX reel: set the src below -->
+          <video controls playsinline preload="metadata"></video>
+          <figcaption>Reel coming soon</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TOOLS ============ -->
+  <!-- ============ TOOLS ============ -->
+  <section class="tools-strip" id="skills">
+    <p class="tools-strip__label">Tools of the craft</p>
+    <div class="marquee">
+      <div class="marquee__track">
+        <span>After Effects</span><span class="marquee__slash">/</span>
+        <span>Premiere Pro</span><span class="marquee__slash">/</span>
+        <span>Photoshop</span><span class="marquee__slash">/</span>
+        <span>CapCut</span><span class="marquee__slash">/</span>
+        <span>After Effects</span><span class="marquee__slash">/</span>
+        <span>Premiere Pro</span><span class="marquee__slash">/</span>
+        <span>Photoshop</span><span class="marquee__slash">/</span>
+        <span>CapCut</span><span class="marquee__slash">/</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Process</p>
+        <h2 class="section__title" data-reveal>From raw footage to final render</h2>
+      </div>
+
+      <div class="process-line" id="processLine" data-reveal>
+        <div class="process-line__track"><span class="process-line__fill" id="processFill"></span></div>
+        <div class="process-step">
+          <span class="process-step__time">Day 0</span>
+          <h3>Discovery</h3>
+          <p>We align on goals, audience and the channel's style before a single clip is touched.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-step__time">Day 1</span>
+          <h3>Planning</h3>
+          <p>Footage review, a rough structure, and a shot-list of graphics or sound needs.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-step__time">Day 2–4</span>
+          <h3>Editing</h3>
+          <p>The full cut — pacing, sound design, colour and motion graphics — built end to end.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-step__time">Day 5</span>
+          <h3>Revision</h3>
+          <p>You review the cut and send notes; I turn revisions around within 24 hours.</p>
+        </div>
+        <div class="process-step">
+          <span class="process-step__time">Day 6</span>
+          <h3>Delivery</h3>
+          <p>Final render, captions and platform-ready exports delivered to your drive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section class="section section--alt section--bloom" id="pricing">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Pricing</p>
+        <h2 class="section__title" data-reveal>One plan, <span class="accent-word">done right</span><span class="hero__dot">.</span></h2>
+        <p class="section__sub" data-reveal>Every project gets the full treatment — final pricing depends on scope.</p>
+      </div>
+
+      <article class="card pricing-card pricing-card--highlight pricing-card--solo tilt" data-reveal>
+        <h3>Video Editing</h3>
+        <p class="pricing-card__price"><span>From €10</span>/ video</p>
+        <p class="pricing-card__desc">Custom quote depending on the project.</p>
+        <ul>
+          <li>Professional editing</li>
+          <li>Motion effects</li>
+          <li>Color correction</li>
+          <li>Transitions</li>
+          <li>Sound effects</li>
+          <li>Fast delivery</li>
+        </ul>
+        <a href="#contact" class="btn btn--primary btn--full magnetic">Get a quote</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="wrap wrap--narrow">
+      <div class="section__head">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section__title" data-reveal>Good to know</h2>
+      </div>
+
+      <div class="accordion" data-reveal>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            What's the usual turnaround time?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>Most videos are delivered in 2–4 business days depending on length and scope. Rush delivery is available — ask when you reach out.</p></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            How do I send you my footage?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>A shared Google Drive or Dropbox folder works best. For large RAW files, WeTransfer also works fine.</p></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            How many revisions are included?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>Every project includes a couple of revision rounds by default. For bigger jobs we'll agree on the scope, including revisions, before starting.</p></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            What file formats do you deliver?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>Platform-ready MP4 (H.264) by default. ProRes masters, vertical crops, and separate caption files are available on request at no extra cost.</p></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            Can you handle rush orders?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>Yes — same-day and next-day turnarounds are available for an added rush fee, subject to current workload. Message me before booking to confirm availability.</p></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger">
+            How do payments work?
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="accordion__panel"><p>50% upfront to begin, 50% on final delivery. I accept bank transfer, PayPal and Wise — pricing is in euros.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section section--alt" id="contact">
+    <div class="wrap contact-center">
+      <p class="eyebrow">Let's talk</p>
+      <h2 class="section__title" data-reveal>Ready to cut something<br><span class="accent-word">people can't scroll past?</span></h2>
+      <p class="lede contact-center__lede" data-reveal>Got an AMV, a YouTube video, or a TikTok that needs editing? Tell me about it — I usually reply within a day.</p>
+
+      <a href="mailto:ttvagenttt@gmail.com" class="btn btn--primary btn--email magnetic" data-reveal>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 6 9-6M3 6v12h18V6"/></svg>
+        ttvagenttt@gmail.com
+      </a>
+
+      <form class="contact__form" id="contactForm" data-reveal novalidate>
+        <div class="field field--row">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <span class="field__error" id="err-name"></span>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+            <span class="field__error" id="err-email"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone / WhatsApp <small>(optional)</small></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+1 000 000 0000">
+        </div>
+        <fieldset class="field">
+          <legend>What do you need? <small>(check all that apply)</small></legend>
+          <div class="checkbox-group">
+            <label class="checkbox"><input type="checkbox" name="services" value="AMV Edits"><span>AMV Edits</span></label>
+            <label class="checkbox"><input type="checkbox" name="services" value="Motion Design"><span>Motion Design</span></label>
+            <label class="checkbox"><input type="checkbox" name="services" value="YouTube Editing"><span>YouTube Editing</span></label>
+            <label class="checkbox"><input type="checkbox" name="services" value="TikTok Editing"><span>TikTok Editing</span></label>
+            <label class="checkbox"><input type="checkbox" name="services" value="Visual Effects"><span>Visual Effects</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="budget">Budget</label>
+          <select id="budget" name="budget">
+            <option>Under €50</option>
+            <option>€50 – €150</option>
+            <option>€150 – €300</option>
+            <option>€300+</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Project details</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <span class="field__error" id="err-message"></span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full magnetic">
+          <span class="btn__label">Send message</span>
+        </button>
+        <p class="contact__note">Opens your email client with everything pre-filled — or copy the email above, whichever you prefer.</p>
+      </form>
+
+      <div class="contact__social" data-reveal>
+        <button type="button" class="social-icon" data-copy="ae.agent" aria-label="Copy Discord handle">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.3 5.4A18 18 0 0 0 15.8 4l-.3.6c1.7.5 2.6 1.1 3.5 1.9-1.5-.7-3-1.2-4.4-1.4-.9-.1-1.8-.1-2.6 0-1.4.2-2.9.7-4.4 1.4.9-.8 1.9-1.5 3.5-1.9L10.8 4a18 18 0 0 0-4.5 1.4C4.2 8.6 3.6 11.8 3.8 15c1.3 1 2.7 1.6 4.2 2l.6-1c-.7-.2-1.4-.5-2-.9.2.1.3.2.5.3 2.7 1.2 5.6 1.2 8.3 0 .2-.1.3-.2.5-.3-.6.4-1.3.7-2 .9l.6 1c1.5-.4 2.9-1 4.2-2 .3-3.7-.6-6.8-2.4-9.6zM9.5 13.4c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.4.7 1.4 1.6-.6 1.6-1.4 1.6zm5 0c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.4.7 1.4 1.6-.6 1.6-1.4 1.6z"/></svg>
+        </button>
+        <a href="https://wa.me/33623553518" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.2-.6.9-.8 1-.1.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-2.9-.3-.4 0-.4.3-.8.1-.2.2-.3.1-.5l-.5-1.2c-.1-.3-.3-.3-.5-.3h-.4c-.2 0-.5.1-.7.4-.2.3-.9 1-.9 2.3 0 1.3 1 2.6 1.1 2.8.1.2 1.7 2.7 4.2 3.7 2 .8 2.4.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2zM12 2a10 10 0 0 0-8.6 15l-1 3.6 3.7-1A10 10 0 1 0 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <a href="#hero" class="nav__logo">ae<span>.</span>agent</a>
+      <p>Designed and built with intention.</p>
+    </div>
+    <ul class="footer__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer__social">
+      <button type="button" class="contact__link--copy" data-copy="ae.agent">Discord</button>
+      <a href="https://wa.me/33623553518" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:ttvagenttt@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <span>© <span id="year"></span> ae.agent. All rights reserved.</span>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
